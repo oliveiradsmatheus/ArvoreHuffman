@@ -30,36 +30,47 @@ void Moldura (int CI,int LI,int CF,int LF,int CorT,int CorF) {
 	textcolor(0);
 }
 
-void MolduraFina (int CI,int LI,int CF,int LF,int CorT,int CorF) {
+void FundoQuadro (int CI, int LI, int CF, int LF, int Cor) {
+	int L=LI+1, C=CI+1;
+	char linha[150]="";
+
+	while(CI < CF - 1) {
+		strcat(linha," ");
+		CI++;
+	}
+	textbackground(Cor);
+	while(L<LF) {
+		gotoxy(C,L);
+		printf("%s", linha);
+		L++;
+	}
+}
+
+void Sombra (int CI, int LI, int CF, int LF, int CorF) {
 	int i;
-
-	textcolor(CorT);
 	textbackground(CorF);
-
-	gotoxy(CI,LI);
-	printf("%c",218);
-	gotoxy(CF,LI);
-	printf("%c",191);
-	gotoxy(CI,LF);
-	printf("%c",192);
-	gotoxy(CF,LF);
-	printf("%c",217);
-
-	for(i=CI+1; i<CF; i++) {
-		gotoxy(i,LI);
-		printf("%c",196);
-		gotoxy(i,LF);
-		printf("%c",196);
+	for(i=LI; i<LF; i++) {
+		gotoxy(CF+1,i+1);
+		printf("  ");
 	}
-	for(i=LI+1; i<LF; i++) {
-		gotoxy(CI,i);
-		printf("%c",179);
-		gotoxy(CF,i);
-		printf("%c",179);
+	for(i=CI; i<CF+2; i++) {
+		gotoxy(i+1,LF+1);
+		printf(" ");
 	}
-
 	textbackground(7);
-	textcolor(0);
+}
+
+void Titulo (int CI, int CF, char *Titulo, int Linha) {
+	int pos = (CF+CI)/2 - (strlen(Titulo)+2)/2;
+
+	if(strlen(Titulo)) {
+		textbackground(0);
+		textcolor(14);
+		gotoxy(pos,Linha);
+		printf(" %s ",Titulo);
+		textcolor(0);
+		textbackground(7);
+	}
 }
 
 void RetiraCursor (void) {
@@ -79,14 +90,14 @@ void LigaCursor (void) {
 }
 
 void Dimensao (void) {
-	system("mode con cols=80 lines=45");
+	system("mode con cols=100 lines=50");
 }
 
 void Fundo (int Cor) {
 	int L=2;
 
 	textbackground(Cor);
-	while(L<45) {
+	while(L<50) {
 		gotoxy(2,L);
 		printf("                                                                                                                      ");
 		L++;
@@ -94,56 +105,61 @@ void Fundo (int Cor) {
 }
 
 void LimpaLinha(int Num) {
-	gotoxy(3,Num);
-	printf("                                                                                                                    ");
+	gotoxy(2,Num);
+	printf("                                                                                                  ");
 }
 
 void LimpaTela(void) {
 	int i;
 
-	for(i=10; i<41; i++)
+	for(i=2; i<48; i++)
 		LimpaLinha(i);
 }
 
-void LimpaTelaMem (void) {
+void LinhaMoldura (int Linha, int CorF, int CorT) {
 	int i;
-	
-	for(i=15;i<41;i++) {
-		gotoxy(46,i);
-		printf("                                                                        ");
+
+	textbackground(CorF);
+	textbackground(CorT);
+	gotoxy(1,Linha);
+	printf("%c",204);
+	gotoxy(100,Linha);
+	printf("%c",185);
+	for(i=2; i<100; i++) {
+		gotoxy(i,Linha);
+		printf("%c",205);
 	}
 }
 
-void LimpaPrint (void) {
+void ColunaMoldura (int LI, int LF, int Coluna, int CorF, int CorT) {
 	int i;
-	
-	for(i=10;i<16;i++) {
-		gotoxy(20,i);
-		printf("                                                                                          ");
+
+	textbackground(CorF);
+	textbackground(CorT);
+	gotoxy(Coluna,LI);
+	printf("%c",203);
+	gotoxy(Coluna,LF);
+	printf("%c",202);
+	for(i=LI+1; i<LF; i++) {
+		gotoxy(Coluna,i);
+		printf("%c",186);
 	}
-}
-
-void LimpaTelaInteira(void) {
-	int i;
-
-	for(i=6; i<41; i++)
-		LimpaLinha(i);
 }
 
 void MolduraCompleta (void) {
-	LimpaTelaInteira();
-	gotoxy(1,1);
-	textbackground(9);
-	printf("                                                                                                                        ");
-	Moldura(1,1,120,45,0,7); // Moldura Externa
-	//Moldura(2,2,119,4,0,7); // Moldura do Titulo
-	Moldura(2,5,119,41,0,7); // Moldura Central
-	Moldura(2,42,119,44,0,7); // Moldura da Mensagem Inferior
+	Fundo(11);
+	Moldura(1,1,100,50,0,11);
 }
 
-void MoldFim() {
-	Fundo(7);
-	Moldura(1,1,120,45,9,7);
-	Moldura(2,2,119,4,9,7);
-	Moldura(2,42,119,44,9,7);
+void ExibeTexto (int TamC, int Linha, int CorT, int CorF, char *texto, char *titulo) {
+	int CI = TamC/2-(strlen(texto)/2+2), CF = TamC/2+(strlen(texto)/2+2), LI = Linha-1, LF = Linha+1;
+	
+	Moldura(CI,LI,CF,LF,CorT,CorF);
+	FundoQuadro(CI,LI,CF,LF,CorF);
+	Sombra(CI,LI,CF,LF,0);
+	Titulo(CI,CF,titulo,LI);
+	gotoxy(TamC/2-strlen(texto)/2,LI+1);
+	textcolor(CorT);
+	textbackground(CorF);
+	printf("%s",texto);
 }

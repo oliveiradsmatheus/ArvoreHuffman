@@ -76,21 +76,6 @@ void PreOrdem (Tree *raiz) {
 	}
 }
 
-void ExibeHorizontal (Tree *raiz) {
-	int i;
-	static int n=-1;
-
-	if(raiz) {
-		n++;
-		ExibeHorizontal(raiz->dir);
-		for(i=0; i<5*n; i++)
-			printf(" ");
-		printf("([%d]: %d)\n",raiz->num, raiz->freq);
-		ExibeHorizontal(raiz->esq);
-		n--;
-	}
-}
-
 void CodificaPalavras (Lista *L, Tree *raiz) {
 	Pilha *P;
 	PilhaStr *PS;
