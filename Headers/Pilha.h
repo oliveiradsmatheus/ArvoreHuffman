@@ -65,7 +65,7 @@ void PreOrdem (Tree *raiz) {
 	push(&P,raiz);
 	while(!isEmpty(P)) {
 		pop(&P,&raiz);
-		if(EhFolha(raiz))
+		if(Folha(raiz))
 			printf("[%d]\t",raiz->freq);
 		else {
 			if(raiz->dir)
@@ -89,7 +89,7 @@ void CodificaPalavras (Lista *L, Tree *raiz) {
 	while(!isEmpty(P)) {
 		pop(&P,&raiz);
 		popS(&PS,codigo);
-		if(EhFolha(raiz)) {
+		if(Folha(raiz)) {
 			aux = L;
 			while(aux && aux->Tab.num != raiz->num)
 				aux = aux->prox;

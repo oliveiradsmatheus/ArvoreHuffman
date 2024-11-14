@@ -51,7 +51,7 @@ Lista *NovaCaixa (char *palavra, int num) {
 	return NC;
 }
 
-char EhFolha (Tree *no) {
+char Folha (Tree *no) {
 	if(!no->esq && !no->dir)
 		return 1;
 	return 0;
@@ -200,6 +200,43 @@ Tree *CriaNoTab (Tab T) {
 	return NC;
 }
 
+
+
+void ExibeTabela(Lista *L) {
+	int l = 18, c = 6;
+
+	Moldura(c,l,94,l+25,0,7);
+	FundoQuadro(c,l,94,l+25,7);
+	Sombra(c,l,94,l+25,0);
+	ColunaMoldura(l,l+25,25,0,7);
+	ColunaMoldura(l,l+25,60,0,7);
+	ColunaMoldura(l,l+25,77,0,7);
+	
+	ExibeTexto(100,14,0,7,"TABELA DE FREQUENCIA DAS PALAVRAS","");
+
+	Titulo(6,25,"CODIGO:",18);
+	Titulo(25,60,"PALAVRA:",18);
+	Titulo(60,77,"FREQUENCIA:",18);
+	Titulo(77,95,"NUMERO:",18);
+
+	c+=2;
+	l+=2;
+	while(L) {
+		gotoxy(((c+25)/2)-strlen(L->Tab.codigo)/2,l);
+		printf("%s",L->Tab.codigo);
+		gotoxy(((25+60)/2)-strlen(L->Tab.palavra)/2,l);
+		printf("%s",L->Tab.palavra);
+		gotoxy((60+77)/2,l);
+		printf("%d",L->Tab.freq);
+		gotoxy((77+95)/2,l);
+		printf("%d",L->Tab.num);
+		l++;
+		L = L->prox;
+	}
+
+	ExibeTexto(100,47,0,14,"PRESSIONE QUALQUER TECLA PARA CONTINUAR","");
+}
+
 Tree *CopiaNo (Tree *T) {
 	Tree *NC = (Tree*)malloc(sizeof(Tree));
 
@@ -330,14 +367,14 @@ void GravaCodigo (char *codigo) {
 	gotoxy(1,1);
 	
 	while(i < strlen(codigo)) {
-		B.bi.b7 = codigo[i] - '0';
-		B.bi.b6 = codigo[i + 1] - '0';
-		B.bi.b5 = codigo[i + 2] - '0';
-		B.bi.b4 = codigo[i + 3] - '0';
-		B.bi.b3 = codigo[i + 4] - '0';
-		B.bi.b2 = codigo[i + 5] - '0';
-		B.bi.b1 = codigo[i + 6] - '0';
-		B.bi.b0 = codigo[i + 7] - '0';
+		B.bi.b0 = codigo[i] - '0';
+		B.bi.b1 = codigo[i + 1] - '0';
+		B.bi.b2 = codigo[i + 2] - '0';
+		B.bi.b3 = codigo[i + 3] - '0';
+		B.bi.b4 = codigo[i + 4] - '0';
+		B.bi.b5 = codigo[i + 5] - '0';
+		B.bi.b6 = codigo[i + 6] - '0';
+		B.bi.b7 = codigo[i + 7] - '0';
 		fwrite(&B,sizeof(Byte),1,arq);
 		i+=8;
 	}

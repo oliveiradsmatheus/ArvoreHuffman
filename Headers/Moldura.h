@@ -93,6 +93,10 @@ void Dimensao (void) {
 	system("mode con cols=100 lines=50");
 }
 
+void DimensaoDecod (void) {
+	system("mode con cols=110 lines=50");
+}
+
 void Fundo (int Cor) {
 	int L=2;
 
@@ -146,9 +150,14 @@ void ColunaMoldura (int LI, int LF, int Coluna, int CorF, int CorT) {
 	}
 }
 
-void MolduraCompleta (void) {
+void MolduraCod (void) {
 	Fundo(11);
 	Moldura(1,1,100,50,0,11);
+}
+
+void MolduraDecod (void) {
+	Fundo(11);
+	Moldura(1,1,110,50,0,11);
 }
 
 void ExibeTexto (int TamC, int Linha, int CorT, int CorF, char *texto, char *titulo) {
