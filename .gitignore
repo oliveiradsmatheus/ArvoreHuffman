@@ -42,9 +42,6 @@
 *.idb
 *.pdb
 
-# Pastas
-/Data
-
 # Kernel Module Compile Results
 *.mod*
 *.cmd

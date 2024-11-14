@@ -18,9 +18,9 @@ void MsgFim (void) {
 }
 
 int main (void) {
-	Floresta *F = NULL;
+	Tree *T = NULL;
 	Lista *L = NULL;
-	char TxtCod[150]="", frase[150]="";
+	char TxtCod[150]="", frase[150]="";	
 
 	RetiraCursor();
 	DimensaoDecod();
@@ -29,9 +29,8 @@ int main (void) {
 
 	LeTabela(&L);
 	LeFrase(TxtCod);
-	CriaFloresta(&F,L);
-	ArvoreHuffman(&F);
-	DecodificaFrase(F->no,L,TxtCod,frase);
+	CriaArvore(&T,L);
+	DecodificaFrase(T,L,TxtCod,frase);
 
 	ExibeTabela(L);
 	ExibeTexto(110,4,0,7,TxtCod,"FRASE");

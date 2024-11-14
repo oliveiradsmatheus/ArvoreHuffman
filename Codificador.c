@@ -32,7 +32,7 @@ void ExibeFrase(char *frase) {
 void ExibeArvore (Tree *raiz) {
 	system("mode con cols=146 lines=28");
 	Moldura(1,1,146,28,0,11);
-	FundoQuadro(1,1,100,28,11);
+	FundoQuadro(1,1,146,28,11);
 	Moldura(4,3,142,14,0,7);
 	FundoQuadro(4,3,142,14,7);
 	Sombra(4,3,142,14,0);

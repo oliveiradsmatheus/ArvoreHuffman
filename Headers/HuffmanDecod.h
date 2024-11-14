@@ -16,17 +16,10 @@ union byte {
 typedef union byte Byte;
 
 struct tree {
-	int freq;
-	char num;
+	int num;
 	struct tree *esq, *dir;
 };
 typedef struct tree Tree;
-
-struct floresta {
-	Tree *no;
-	struct floresta *prox;
-};
-typedef struct floresta Floresta;
 
 struct tabela {
 	char palavra[30], codigo[8];
@@ -73,69 +66,60 @@ void InsereLista (Lista **L, Tab T) {
 	}
 }
 
-Tree *CriaNoTab (Tab T) {
+Tree *CriaNo (int num) {
 	Tree *NC = (Tree*)malloc(sizeof(Tree));
 
 	NC->dir = NC->esq = NULL;
-	NC->num = T.num;
-	NC->freq = T.freq;
+	NC->num = num;
 
 	return NC;
 }
 
-Floresta *NovaArvore (Tree *T) {
-	Floresta *NC = (Floresta*)malloc(sizeof(Floresta));
+void ExibeHorizontal (Tree *raiz) {
+	int i;
+	static int n=-1;
 
-	NC->no = T;
-	NC->prox = NULL;
-
-	return NC;
-}
-
-void InsereFloresta (Floresta **F, Tree *T) {
-	Floresta *aux, *Novo = NovaArvore(T);
-
-	if(!*F)
-		*F = Novo;
-	else {
-		if(Novo->no->freq <= (*F)->no->freq) {
-			Novo->prox = *F;
-			*F = Novo;
-		} else {
-			aux = *F;
-			while(aux->prox && Novo->no->freq > aux->prox->no->freq)
-				aux = aux->prox;
-			Novo->prox = aux->prox;
-			aux->prox = Novo;
-		}
+	if(raiz) {
+		n++;
+		ExibeHorizontal(raiz->dir);
+		for(i=0; i<5*n; i++)
+			printf(" ");
+		printf("(%d)\n", raiz->num);
+		ExibeHorizontal(raiz->esq);
+		n--;
 	}
 }
 
-void CriaFloresta (Floresta **F, Lista *L) {
-	Tree *Novo;
+void CriaArvore (Tree **raiz, Lista *L) {
+	Tree *aux;
+	int i;
+	
+	*raiz = CriaNo(-1);	
 	while(L) {
-		Novo = CriaNoTab(L->Tab);
-		InsereFloresta(&*F,Novo);
+		aux = *raiz;
+		i = 0;		
+		while(i<strlen(L->Tab.codigo)-1) {
+			if(L->Tab.codigo[i]-'0' == 0)
+				if(aux->esq)
+					aux = aux->esq;
+				else {
+					aux->esq = CriaNo(-1);
+					aux = aux->esq;
+				}
+			else
+				if(aux->dir)
+					aux = aux->dir;
+				else {
+					aux->dir = CriaNo(-1);
+					aux = aux->dir;
+				}
+			i++;
+		}
+		if(L->Tab.codigo[i] - '0' == 0)
+			aux->esq = CriaNo(L->Tab.num);
+		else
+			aux->dir = CriaNo(L->Tab.num);
 		L = L->prox;
-	}
-}
-
-void ArvoreHuffman (Floresta **F) {
-	Tree *Novo;
-	Floresta *pri, *seg;
-
-	while((*F)->prox) {
-		Novo = (Tree*)malloc(sizeof(Tree));
-		pri = *F;
-		seg = (*F)->prox;
-		Novo->esq = pri->no;
-		Novo->dir = seg->no;
-		Novo->num = -1;
-		Novo->freq = pri->no->freq + seg->no->freq;
-		*F = (*F)->prox->prox;
-		free(pri);
-		free(seg);
-		InsereFloresta(&*F,Novo);
 	}
 }
 

@@ -16,8 +16,7 @@ union byte {
 typedef union byte Byte;
 
 struct tree {
-	int freq;
-	char num;
+	int freq, num;
 	struct tree *esq, *dir;
 };
 typedef struct tree Tree;
