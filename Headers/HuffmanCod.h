@@ -57,30 +57,6 @@ char Folha (Tree *no) {
 	return 0;
 }
 
-int QtdeEsquerda (Tree *raiz) {
-	int cont = 0;
-
-	if(raiz)
-		while(raiz->esq) {
-			raiz = raiz->esq;
-			cont++;
-		}
-
-	return cont;
-}
-
-int QtdeDireita (Tree *raiz) {
-	int cont = 0;
-
-	if(raiz)
-		while(raiz->dir) {
-			raiz = raiz->dir;
-			cont++;
-		}
-
-	return cont;
-}
-
 void QtdeFilhos (Tree *raiz, int *cont) {
 	if(raiz) {
 		if(raiz->esq) {
@@ -96,14 +72,14 @@ void QtdeFilhos (Tree *raiz, int *cont) {
 
 void ExibeVertical (Tree *raiz, int c, int l) {
 	int i, filhos = 0, QtdeEsq = 0, QtdeDir = 0;
-	
+
 	if(raiz) {
 		if(raiz->esq) {
 			filhos = 1;
 			QtdeFilhos(raiz->esq,&filhos);
 		}
 		c+=filhos;
-		
+
 		gotoxy(c*3,l);
 		printf("(%d)\n",raiz->freq,c);
 		ExibeVertical(raiz->esq,c-filhos,l+1);
@@ -123,13 +99,6 @@ void ExibeHorizontal (Tree *raiz) {
 		printf("(%d)\n", raiz->freq);
 		ExibeHorizontal(raiz->esq);
 		n--;
-	}
-}
-
-void ExibeLista (Lista *L) {
-	while(L) {
-		printf("<%s - [%d] - %d - %s>\n", L->Tab.codigo, L->Tab.num, L->Tab.freq, L->Tab.palavra);
-		L = L->prox;
 	}
 }
 
@@ -200,8 +169,6 @@ Tree *CriaNoTab (Tab T) {
 	return NC;
 }
 
-
-
 void ExibeTabela(Lista *L) {
 	int l = 18, c = 6;
 
@@ -211,7 +178,7 @@ void ExibeTabela(Lista *L) {
 	ColunaMoldura(l,l+25,25,0,7);
 	ColunaMoldura(l,l+25,60,0,7);
 	ColunaMoldura(l,l+25,77,0,7);
-	
+
 	ExibeTexto(100,14,0,7,"TABELA DE FREQUENCIA DAS PALAVRAS","");
 
 	Titulo(6,25,"CODIGO:",18);
@@ -324,7 +291,7 @@ void BuscaCodigo (char *palavra, Lista *L, char *codigo) {
 
 void CorrigeTamanho (char *codigo) {
 	int resto = strlen(codigo) % 8, qtde = 0;
-	
+
 	if(resto)
 		qtde = 8-resto;
 	while(qtde--)
@@ -335,7 +302,7 @@ void CodificaTexto (char *texto, Lista *L, char *codigo) {
 	char palavra[30], aux[10];
 	int i=0, j;
 	gotoxy(1,1);
-	
+
 	while(i < strlen(texto)) {
 		strcpy(palavra,"");
 		if(texto[i] == ' ') {
@@ -355,7 +322,7 @@ void CodificaTexto (char *texto, Lista *L, char *codigo) {
 		}
 		i++;
 	}
-	
+
 	CorrigeTamanho(codigo);
 }
 
@@ -363,9 +330,9 @@ void GravaCodigo (char *codigo) {
 	Byte B;
 	FILE *arq = fopen("Data\\frase.dat","wb");
 	int i=0;
-	
+
 	gotoxy(1,1);
-	
+
 	while(i < strlen(codigo)) {
 		B.bi.b0 = codigo[i] - '0';
 		B.bi.b1 = codigo[i + 1] - '0';
@@ -378,6 +345,6 @@ void GravaCodigo (char *codigo) {
 		fwrite(&B,sizeof(Byte),1,arq);
 		i+=8;
 	}
-	
+
 	fclose(arq);
 }

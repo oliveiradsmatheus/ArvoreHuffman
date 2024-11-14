@@ -44,7 +44,7 @@ void MsgFim (void) {
 	system("mode con cols=80 lines=30");
 	Moldura(1,1,80,30,0,11);
 	FundoQuadro(1,1,80,30,11);
-	
+
 	ExibeTexto(80,4,0,7,"TRABALHO BIMESTRAL - ESTRUTURAS DE DADOS II","");
 	ExibeTexto(80,9,0,14,"CODIFICADOR DE STRINGS UTILIZANDO ARVORE DE HUFFMAN","");
 	ExibeTexto(80,14,0,7,"102421080 - MATHEUS OLIVEIRA DA SILVA","");
