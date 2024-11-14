@@ -5,7 +5,6 @@
 #include <windows.h>
 #include "Headers\\Moldura.h"
 #include "Headers\\HuffmanDecod.h"
-#include "Headers\\Pilha.h"
 
 void MsgFim (void) {
 	system("mode con cols=80 lines=30");
