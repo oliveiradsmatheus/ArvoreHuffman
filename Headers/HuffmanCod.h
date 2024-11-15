@@ -191,7 +191,7 @@ void ExibeTabela(Lista *L) {
 		gotoxy(((c+25)/2)-strlen(L->Tab.codigo)/2,l);
 		printf("%s",L->Tab.codigo);
 		gotoxy(((25+60)/2)-strlen(L->Tab.palavra)/2,l);
-		printf("%s",L->Tab.palavra);
+		printf("\" %s \"",L->Tab.palavra);
 		gotoxy((60+77)/2,l);
 		printf("%d",L->Tab.freq);
 		gotoxy((77+95)/2,l);
