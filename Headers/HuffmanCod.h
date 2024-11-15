@@ -80,7 +80,7 @@ void ExibeVertical (Tree *raiz, int c, int l) {
 		c+=filhos;
 
 		gotoxy(c*3,l);
-		printf("(%d)\n",raiz->freq,c);
+		printf("(%d)\n",raiz->freq);
 		ExibeVertical(raiz->esq,c-filhos,l+1);
 		ExibeVertical(raiz->dir,c+1,l+1);
 	}
