@@ -51,9 +51,10 @@ Lista *NovaCaixa (char *palavra, int num) {
 }
 
 char Folha (Tree *no) {
-	if(!no->esq && !no->dir)
+	return no->esq==NULL && no->dir==NULL;
+	/*if(!no->esq && !no->dir)
 		return 1;
-	return 0;
+	return 0;*/
 }
 
 void QtdeFilhos (Tree *raiz, int *cont) {
