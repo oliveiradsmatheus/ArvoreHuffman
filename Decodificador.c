@@ -19,7 +19,6 @@ void MsgFim (void) {
 
 int main (void) {
 	Tree *T = NULL;
-	Lista *L = NULL;
 	char TxtCod[150]="", frase[150]="";	
 
 	RetiraCursor();
@@ -27,14 +26,15 @@ int main (void) {
 	MolduraDecod();
 	SetConsoleTitle("Decodificador de Strings");
 
-	LeTabela(&L);
 	LeFrase(TxtCod);
-	CriaArvore(&T,L);
-	DecodificaFrase(T,L,TxtCod,frase);
+	CriaArvore(&T);
+	DecodificaFrase(T,TxtCod,frase);
 
-	ExibeTabela(L);
+	ExibeTabela();
 	ExibeTexto(110,4,0,7,TxtCod,"FRASE");
 	ExibeTexto(110,9,0,14,frase,"FRASE DECODIFICADA");
+	getch();
+	ExibeArvore(T);
 	getch();
 
 	MsgFim();
