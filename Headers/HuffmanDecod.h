@@ -212,7 +212,7 @@ void QtdeFilhos (Tree *raiz, int *cont) {
 }
 
 void ExibeVertical (Tree *raiz, int c, int l) {
-	int i, filhos = 0, QtdeEsq = 0, QtdeDir = 0;
+	int filhos = 0, QtdeEsq = 0, QtdeDir = 0;
 
 	if(raiz) {
 		if(raiz->esq) {

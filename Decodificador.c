@@ -34,6 +34,7 @@ int main (void) {
 	ExibeTexto(110,4,0,7,TxtCod,"FRASE");
 	ExibeTexto(110,9,0,14,frase,"FRASE DECODIFICADA");
 	getch();
+	
 	ExibeArvore(T);
 	getch();
 
